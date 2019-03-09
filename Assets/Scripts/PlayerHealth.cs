@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerHealth : MonoBehaviour
 {
+
     public int startingHealth = 100;                            // The amount of health the player starts the game with.
     public int currentHealth;                                   // The current health the player has.
     public Slider healthSlider;                                 // Reference to the UI's health bar.
@@ -12,14 +13,12 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
-    public GameObject pausePanel;
-
 
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     GameObject mainCamera;                                      //В дальнейшем обращаюсь к Audiousource, чтобы выключить..
-    PlayerScript playerMovement;                              // Reference to the player's movement.
-    LaserScript playerShooting;                              // Reference to the PlayerShooting script.
+    //PlayerScript playerMovement;                                // Reference to the player's movement.
+    //LaserScript playerShooting;                                 // Reference to the PlayerShooting script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
 
@@ -33,8 +32,6 @@ public class PlayerHealth : MonoBehaviour
 
         // Set the initial health of the player.
         currentHealth = startingHealth;
-
-        Debug.Log("Hello1");
     }
 
 
@@ -56,7 +53,6 @@ public class PlayerHealth : MonoBehaviour
         // Reset the damaged flag.
         damaged = false;
 
-        Debug.Log("Hello1");
     }
 
 
@@ -81,7 +77,6 @@ public class PlayerHealth : MonoBehaviour
             Death();
         }
 
-        Debug.Log("Hello1");
     }
 
 
@@ -90,20 +85,20 @@ public class PlayerHealth : MonoBehaviour
         // Set the death flag so this function won't be called again.
         isDead = true;
 
+
         // Tell the animator that the player is dead.
-        anim.SetTrigger("playerShipDeath");
 
-        // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        mainCamera.GetComponent<AudioSource>().Stop();
-        GetComponent<AudioSource>().PlayOneShot(deathClip);
+        //    anim.Play("playerShipDeath");
+        anim.SetBool("playerShipDeath", true);
         Time.timeScale = 0;
-        pausePanel.SetActive(true);
 
-        // Turn off the movement and shooting scripts.
-        //playerMovement.enabled = false;
-        //playerShooting.enabled = false;
+            // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
+            mainCamera.GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().PlayOneShot(deathClip);
 
-        Debug.Log("Hello1");
+            // Turn off the movement and shooting scripts.
+            //playerMovement.moveRotation = false;
+            //playerShooting.enabled = false;
     }
 
 }

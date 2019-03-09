@@ -5,12 +5,12 @@ public class EnemyScript : MonoBehaviour
     // Сколько раз нужно попасть во врага, чтобы уничтожить его
     public int Enemyhealth = 2;
 
-    public float elapsedTime = 0.0f;
+    public float elapsedTime = 0.0f; //Таймер для кулдауна атаки
 
     public int enemyDamage = 10; //Дамаг врага
 
     Transform player;                          //Корабль
-    PlayerHealth playerHealth;                  //ХП
+    PlayerHealth playerHealth;                  //Здоровье
     
     bool playerInRange;                         // Зона атаки
 

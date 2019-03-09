@@ -28,23 +28,23 @@ public class PlayerScript : MonoBehaviour
     // Текущая скорость перемещения
     private float currentSpeed = 0.0f;
 
+    //Статус вращения и движения
+    public bool moveRotation = true;
+
+    //ДЛЯ ВТОРОГО ЛАЗЕРА
+    //GameController gameControll;
+
     // Создание переменных для кнопок
     public List<KeyCode> upButton;
     public List<KeyCode> downButton;
     public List<KeyCode> leftButton;
     public List<KeyCode> rightButton;
-    public GameObject currentWave;
 
     // Сохранение последнего перемещения
     private Vector3 lastMovement = new Vector3();
 
     // Переменная для звука выстрела лазером
     public AudioClip shootSound;
-
-    private void Start()
-    {
-        currentWave = GameObject.FindGameObjectWithTag("GameController");
-    }
 
     void Rotation()
     {
@@ -133,26 +133,37 @@ void Movement()
             {
                 timeTilNextFire = timeBetweenFires;
                 ShootLaser();
+
+               //ЗАРОДЫШ ПОЯВЛЕНИЯ ВТОРОГО ЛАЗЕРА...
                 /*
-                if (currentWave >= 2) //Этот waveNumber в объекте GameController > GameController Script, мне нужно получить значения из этой переменной
+                if (gameControll.waveNumber > 2) //Этот waveNumber в объекте GameController > GameController Script, мне нужно получить значения из этой переменной
                 {
 
                      ShootLaser2();
 
                 }
                 */
-                    // Воспроизвести звук выстрела лазером
-                    GetComponent<AudioSource>().PlayOneShot(shootSound);
+
+                // Воспроизвести звук выстрела лазером
+                GetComponent<AudioSource>().PlayOneShot(shootSound);
                 break;
             }
         }
         timeTilNextFire -= Time.deltaTime;
 
 
-        // Поворот героя к мышке
-        Rotation();
-        // Перемещение героя
-        Movement();
+        if (moveRotation == true)
+        {
+            // Поворот героя к мышке
+            Rotation();
+            // Перемещение героя
+            Movement();
+
+        }
+        else
+        {
+
+        }
 
 
 
